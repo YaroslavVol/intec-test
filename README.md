@@ -14,7 +14,7 @@ npm -version        # Нужен npm 8+
 ### Быстрый запуск с Docker
 # 1. Клонируйте репозиторий
 git clone https://github.com/YaroslavVol/intec-test.git
-cd activity-manager
+cd intec-test
 
 # 2. Запустите весь стек (PostgreSQL + Backend + Frontend)
 docker-compose up 
