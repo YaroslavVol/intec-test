@@ -1,0 +1,42 @@
+# Игнорировать при сборке Docker образа frontend
+# Путь: frontend/.dockerignore
+
+# Dependencies (будут установлены в контейнере)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output (будет создан в контейнере)
+dist/
+.vite/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Environment files (используем переменные в Dockerfile)
+.env
+.env.local
+.env.*.local
+
+# Документация
+README.md
+*.md
+
+# Docker файлы
+Dockerfile
+.dockerignore
+
+# Logs
+*.log

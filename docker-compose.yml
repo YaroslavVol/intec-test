@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: activity-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: activity_manager
+      POSTGRES_USER: activity_user
+      POSTGRES_PASSWORD: password123
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - activity-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    container_name: activity-backend
+    restart: unless-stopped
+
+#    expose:
+#      - "8080"
+
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/activity_manager
+      SPRING_DATASOURCE_USERNAME: activity_user
+      SPRING_DATASOURCE_PASSWORD: password123
+      ALLOWED_ORIGINS: http://localhost:80,http://localhost,http://localhost:3000,http://localhost:8080
+      JAVA_OPTS: -Xms256m -Xmx512m
+
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+
+    volumes:
+      - backend_logs:/var/log/activity-manager
+
+    networks:
+      - activity-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    container_name: activity-frontend
+    restart: unless-stopped
+
+    ports:
+      - "80:80"
+
+    networks:
+      - activity-network
+
+
+volumes:
+  postgres_data:
+    driver: local
+
+  backend_logs:
+    driver: local
+
+networks:
+  activity-network:
+    driver: bridge

@@ -1,0 +1,42 @@
+# Игнорировать при сборке Docker образа backend
+# Путь: backend/.dockerignore
+# Уменьшает размер контекста сборки и время
+
+# Maven
+target/
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.settings/
+.classpath
+.project
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Git
+.git/
+.gitignore
+
+# Документация (не нужна в образе)
+README.md
+CHANGELOG.md
+*.md
+
+# Тесты (не нужны в runtime образе)
+src/test/
+
+# Docker файлы
+Dockerfile
+.dockerignore
